@@ -31,4 +31,7 @@ export default class OrderModel extends Model {
 
   @Column({ allowNull: false })
   declare total: number;
+
+  @Column({ allowNull: false })
+  declare status: number;
 }

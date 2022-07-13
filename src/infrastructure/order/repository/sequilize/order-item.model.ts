@@ -34,10 +34,13 @@ export default class OrderItemModel extends Model {
   declare order: ProductModel;
 
   @Column({ allowNull: false })
+  declare name: string;
+
+  @Column({ allowNull: false })
   declare quantity: number;
 
   @Column({ allowNull: false })
-  declare name: string;
+  declare unity_price: number;
 
   @Column({ allowNull: false })
   declare price: number;

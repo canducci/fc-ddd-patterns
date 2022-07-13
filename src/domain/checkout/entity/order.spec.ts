@@ -1,4 +1,4 @@
-import Order from "./order";
+import Order, { OrderStatus } from "./order";
 import OrderItem from "./order_item";
 
 describe("Order unit tests", () => {
@@ -32,7 +32,28 @@ describe("Order unit tests", () => {
     const order2 = new Order("o1", "c1", [item, item2]);
     total = order2.total();
     expect(total).toBe(600);
-  });
+  });  
+
+  it("should be pending when created", () => {
+    const item = new OrderItem("i1", "Item 1", 100, "p1", 2);
+    const order = new Order("o1", "c1", [item]);
+
+    expect(order.status).toBe(OrderStatus.Pending)
+  })
+
+  it("should update status", () => {
+
+    const item = new OrderItem("i1", "Item 1", 100, "p1", 2);
+    const order = new Order("o1", "c1", [item]);
+
+    order.approve();
+    expect(order.status).toBe(OrderStatus.Approved);
+
+    order.ship();
+    expect(order.status).toBe(OrderStatus.Shipped);
+
+
+  })
 
   it("should throw error if the item qte is less or equal zero 0", () => {
     expect(() => {

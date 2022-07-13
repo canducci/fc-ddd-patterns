@@ -1,15 +1,24 @@
 import OrderItem from "./order_item";
+
+export enum OrderStatus {
+  Pending,
+  Approved,
+  Shipped,
+}
+
 export default class Order {
   private _id: string;
   private _customerId: string;
   private _items: OrderItem[];
   private _total: number;
+  private _status: OrderStatus;
 
   constructor(id: string, customerId: string, items: OrderItem[]) {
     this._id = id;
     this._customerId = customerId;
     this._items = items;
     this._total = this.total();
+    this._status = OrderStatus.Pending;
     this.validate();
   }
 
@@ -23,6 +32,18 @@ export default class Order {
 
   get items(): OrderItem[] {
     return this._items;
+  }
+
+  get status() {
+    return this._status;
+  }
+
+  ship() {
+    this._status = OrderStatus.Shipped;
+  }
+
+  approve() {
+    this._status = OrderStatus.Approved;
   }
 
   validate(): boolean {
