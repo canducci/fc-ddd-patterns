@@ -79,4 +79,12 @@ describe("Domain events tests", () => {
 
     expect(spyEventHandler).toHaveBeenCalled();
   });
+
+  it("event dispatcher should be singleton", () => {
+    const eventDispatcher = EventDispatcher.getInstance();
+    const eventDispatcher2 = EventDispatcher.getInstance();
+
+    expect(eventDispatcher).toBeInstanceOf(EventDispatcher);
+    expect(eventDispatcher2).toBe(eventDispatcher);
+  })
 });

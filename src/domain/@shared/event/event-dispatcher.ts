@@ -3,6 +3,17 @@ import EventHandlerInterface from "./event-handler.interface";
 import eventInterface from "./event.interface";
 
 export default class EventDispatcher implements EventDispatcherInterface {
+
+  private static _instance : EventDispatcher = undefined;
+  
+  static getInstance() : EventDispatcher {
+    if(!this._instance){
+      this._instance = new EventDispatcher();
+    }
+
+    return this._instance;
+  }
+
   private eventHandlers: { [eventName: string]: EventHandlerInterface[] } = {};
 
   get getEventHandlers(): { [eventName: string]: EventHandlerInterface[] } {
